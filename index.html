@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start | Workspace</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div id="login-view" class="view-container active">
+        <div class="glass-panel text-center">
+            <h1>Workspace</h1>
+            <p>Sign in to load your personal dashboard.</p>
+            <button id="btn-login" class="glass-btn login-btn">
+                <i class="fa-brands fa-google"></i> Sign in with Google
+            </button>
+        </div>
+    </div>
+
+    <div id="dashboard-view" class="view-container hidden">
+        <div class="nav-bar">
+            <button id="btn-settings" class="glass-btn icon-btn"><i class="fa-solid fa-sliders"></i> Customize</button>
+            <button id="btn-logout" class="glass-btn icon-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+        </div>
+
+        <div id="dashboard-grid" class="dashboard">
+            </div>
+    </div>
+
+    <div id="settings-modal" class="modal-overlay hidden">
+        <div class="glass-panel modal-content">
+            <div class="modal-header">
+                <h2>Dashboard Settings</h2>
+                <button id="btn-close-settings" class="glass-btn icon-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="modal-body">
+                <h3>Background URL</h3>
+                <input type="text" id="input-bg" class="glass-input" placeholder="https://images.unsplash.com/...">
+                
+                <hr class="glass-divider">
+                
+                <h3>My Quick Links</h3>
+                <div id="link-editor-list">
+                    </div>
+                <button id="btn-add-link" class="glass-btn add-btn">+ Add New Link</button>
+            </div>
+
+            <div class="modal-footer">
+                <button id="btn-save-settings" class="glass-btn primary-btn">Save to Cloud</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>

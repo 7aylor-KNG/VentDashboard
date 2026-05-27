@@ -10,12 +10,18 @@
 <body>
 
     <div id="login-view" class="view-container active">
-        <div class="glass-panel text-center">
+        <div class="glass-panel text-center" style="max-width: 350px;">
             <h1>Workspace</h1>
-            <p>Sign in to load your personal dashboard.</p>
-            <button id="btn-login" class="glass-btn login-btn">
-                <i class="fa-brands fa-google"></i> Sign in with Google
-            </button>
+            <p>Sign in or create an account.</p>
+            
+            <input type="email" id="input-email" class="glass-input" placeholder="Email" autocomplete="email">
+            <input type="password" id="input-password" class="glass-input" placeholder="Password">
+            
+            <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
+                <button id="btn-login" class="glass-btn primary-btn" style="width: 100%;">Log In</button>
+                <button id="btn-register" class="glass-btn" style="width: 100%;">Register</button>
+            </div>
+            <p id="auth-error" style="color: #ff6b6b; font-size: 0.9rem; margin-top: 15px; display: none;"></p>
         </div>
     </div>
 

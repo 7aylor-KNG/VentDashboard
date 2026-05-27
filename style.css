@@ -1,3 +1,23 @@
+/* --- Core Variables for Theming --- */
+:root {
+    --text-color: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-hover: rgba(255, 255, 255, 0.15);
+    --input-bg: rgba(0, 0, 0, 0.2);
+    --placeholder-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Dark Tint Theme (Activated via JS for bright backgrounds) */
+body.dark-tint {
+    --text-color: #1a1a1a;
+    --glass-bg: rgba(0, 0, 0, 0.15);
+    --glass-border: rgba(0, 0, 0, 0.3);
+    --glass-hover: rgba(0, 0, 0, 0.25);
+    --input-bg: rgba(255, 255, 255, 0.3);
+    --placeholder-color: rgba(0, 0, 0, 0.6);
+}
+
 /* --- Global & Typography --- */
 * {
     margin: 0;
@@ -7,12 +27,12 @@
 }
 
 body {
-    /* The vibrant background is required to make the frosted glass visible */
     background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop') no-repeat center center fixed;
     background-size: cover;
     height: 100vh;
-    color: #ffffff;
+    color: var(--text-color);
     overflow: hidden;
+    transition: color 0.3s ease;
 }
 
 /* --- View Management --- */
@@ -32,19 +52,20 @@ body {
 
 /* --- Glassmorphism Core Utilities --- */
 .glass-panel {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--glass-bg);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--glass-border);
     border-radius: 24px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
     padding: 30px;
+    transition: background 0.3s ease, border 0.3s ease;
 }
 
 .glass-btn {
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
+    background: var(--glass-hover);
+    border: 1px solid var(--glass-border);
+    color: var(--text-color);
     padding: 10px 20px;
     border-radius: 12px;
     cursor: pointer;
@@ -55,31 +76,32 @@ body {
 }
 
 .glass-btn:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: var(--glass-border);
     transform: translateY(-2px);
 }
 
 .glass-input {
     width: 100%;
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
+    background: var(--input-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-color);
     padding: 12px 15px;
     border-radius: 10px;
     font-size: 1rem;
     outline: none;
     margin-top: 10px;
     margin-bottom: 20px;
+    transition: background 0.3s ease, border 0.3s ease, color 0.3s ease;
 }
 
 .glass-input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--placeholder-color);
 }
 
 .glass-divider {
     border: 0;
     height: 1px;
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--glass-border);
     margin: 20px 0;
 }
 
@@ -90,12 +112,9 @@ body {
 }
 
 #login-view p {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-color);
+    opacity: 0.8;
     margin-bottom: 25px;
-}
-
-.login-btn i {
-    margin-right: 8px;
 }
 
 /* --- Dashboard View & Grid --- */
@@ -126,11 +145,11 @@ body {
     width: 90%;
 }
 
-/* Dynamic Widgets injected by JS */
+/* Dynamic Widgets */
 .widget {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--glass-bg);
     backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--glass-border);
     border-radius: 24px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
     padding: 20px;
@@ -138,17 +157,17 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: transform 0.2s ease, background 0.2s ease;
+    transition: transform 0.2s ease, background 0.3s ease, border 0.3s ease;
 }
 
 .widget:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--glass-hover);
     transform: translateY(-2px);
 }
 
 .link-widget {
     text-decoration: none;
-    color: white;
+    color: var(--text-color);
     aspect-ratio: 1 / 1;
     cursor: pointer;
 }
@@ -194,17 +213,62 @@ body {
 }
 
 .primary-btn {
-    background: rgba(255, 255, 255, 0.9);
-    color: #000;
+    background: var(--text-color);
+    color: var(--glass-bg);
     font-weight: 600;
 }
 
 .primary-btn:hover {
-    background: #ffffff;
+    opacity: 0.9;
 }
 
 .add-btn {
     width: 100%;
     border-style: dashed;
     background: transparent;
+}
+
+/* --- Theme Toggle Switch --- */
+.theme-toggle-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.theme-toggle-btn {
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+/* --- iOS Edit Mode & Wiggle Animation --- */
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-2deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(2deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.edit-mode .widget.link-widget {
+    animation: wiggle 0.3s infinite;
+    cursor: grab;
+    position: relative;
+    border: 1px dashed var(--text-color); 
+}
+
+.edit-mode .widget.link-widget:hover {
+    transform: none; 
+}
+
+.widget.dragging {
+    opacity: 0.4;
+    transform: scale(1.05);
+    animation: none; 
+}
+
+.widget.drag-over {
+    border: 2px solid var(--text-color);
+    background: var(--glass-border);
 }

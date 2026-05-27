@@ -272,3 +272,19 @@ body {
     border: 2px solid var(--text-color);
     background: var(--glass-border);
 }
+
+/* --- Clock Widget --- */
+.clock-widget {
+    grid-column: span 2;
+    align-items: flex-start;
+}
+.time {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+.date {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    margin-top: 5px;
+}

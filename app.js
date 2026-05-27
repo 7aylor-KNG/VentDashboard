@@ -1,6 +1,6 @@
 // --- 1. Firebase Setup & Imports ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
 // Your specific Firebase configuration
@@ -17,7 +17,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
 
 // --- 2. State & Default Data ---
 let currentUser = null;
@@ -36,9 +35,37 @@ const dashboardView = document.getElementById('dashboard-view');
 const dashboardGrid = document.getElementById('dashboard-grid');
 const settingsModal = document.getElementById('settings-modal');
 
+const emailInput = document.getElementById('input-email');
+const passwordInput = document.getElementById('input-password');
+const authError = document.getElementById('auth-error');
+
 // --- 4. Authentication Logic ---
+
+// Helper to show errors briefly
+function showAuthError(message) {
+    authError.textContent = message.replace('Firebase: ', '');
+    authError.style.display = 'block';
+    setTimeout(() => authError.style.display = 'none', 4000);
+}
+
+// Handle Login
 document.getElementById('btn-login').addEventListener('click', () => {
-    signInWithPopup(auth, provider).catch(error => console.error("Login failed:", error));
+    const email = emailInput.value;
+    const password = passwordInput.value;
+    if (!email || !password) return showAuthError("Please enter email and password.");
+    
+    signInWithEmailAndPassword(auth, email, password)
+        .catch(error => showAuthError(error.message));
+});
+
+// Handle Registration
+document.getElementById('btn-register').addEventListener('click', () => {
+    const email = emailInput.value;
+    const password = passwordInput.value;
+    if (!email || !password) return showAuthError("Please enter email and password.");
+    
+    createUserWithEmailAndPassword(auth, email, password)
+        .catch(error => showAuthError(error.message));
 });
 
 document.getElementById('btn-logout').addEventListener('click', () => {
@@ -51,6 +78,8 @@ onAuthStateChanged(auth, async (user) => {
         currentUser = user;
         loginView.classList.add('hidden');
         dashboardView.classList.remove('hidden');
+        emailInput.value = ''; // clear inputs
+        passwordInput.value = '';
         await loadUserData(user.uid);
     } else {
         currentUser = null;

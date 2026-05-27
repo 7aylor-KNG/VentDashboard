@@ -27,6 +27,7 @@
 
     <div id="dashboard-view" class="view-container hidden">
         <div class="nav-bar">
+            <button id="btn-edit-mode" class="glass-btn icon-btn"><i class="fa-solid fa-arrows-up-down-left-right"></i> Arrange</button>
             <button id="btn-settings" class="glass-btn icon-btn"><i class="fa-solid fa-sliders"></i> Customize</button>
             <button id="btn-logout" class="glass-btn icon-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
         </div>
@@ -43,6 +44,15 @@
             </div>
             
             <div class="modal-body">
+                <div class="theme-toggle-container">
+                    <h3>Glass Tint</h3>
+                    <button id="btn-toggle-theme" class="glass-btn theme-toggle-btn">
+                        <i class="fa-solid fa-moon"></i> Switch to Dark Tint
+                    </button>
+                </div>
+
+                <hr class="glass-divider">
+
                 <h3>Background URL</h3>
                 <input type="text" id="input-bg" class="glass-input" placeholder="https://images.unsplash.com/...">
                 
